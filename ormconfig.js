@@ -3,11 +3,11 @@ const { join } = require('path');
 
 module.exports = {
   type: 'postgres',
-  host: process.env.DB_HOST || 'ec2-3-227-181-85.compute-1.amazonaws.com',
+  host: process.env.DB_HOST || 'ec2-3-225-41-234.compute-1.amazonaws.com',
   port: process.env.DB_PORT || 5432,
-  username: process.env.DB_USERNAME || 'kaaqkmqweugugw',
-  password: process.env.DB_PASSWORD || 'cf2b9801dac2b8d505464fcbbf0a1bc88b5b7c67bc28ec60c0d73387e05cf36e',
-  database: process.env.DB_NAME || 'd2t8s8cbenc8ou',
+  username: process.env.DB_USERNAME || 'whqhehaijnonmw',
+  password: process.env.DB_PASSWORD || 'deabbc9af6de13de77a1c21f487065f9b86fc9ddc563591fb3b71de570201f32',
+  database: process.env.DB_NAME || 'd99329qpfrralq',
   logging: false,
   entities: [join(__dirname, 'build/database/models/**/*.js')],
   migrations: [join(__dirname, 'build/database/migrations/**/*.js')],
