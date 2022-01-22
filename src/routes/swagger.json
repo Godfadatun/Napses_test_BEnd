@@ -1,0 +1,235 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Daniel-ADEGOKE-STAR-WARS-API1",
+        "description": "Test API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "star-wars-test-1.herokuapp.com",
+    "basePath": "/api",
+    "tags": [
+        {"name": "Get-Film", "description": "Used to get films with some filters; \n Like ``comments``, ``characters`` and **Film Selection**"},
+        {"name": "Get-Film-characters", "description": "Used to get a films characters with some filters; \n Like ``gender``, ``height`` and ``name``  \n **NB:** Only one of the available filter can be used per time "},
+        {
+            "name": "Create-comment", 
+            "description": "Used to create a comment; \n **NB:** Comment can't be longer than ``500`` characters "
+        }
+    ],
+    "schemes": ["http", "https"],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+
+    "paths": {
+        "/create-comment": {
+            "post":{
+                "tags": ["Create-comment"],
+                "summary": "Creat a comment",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "description": "Create a comment",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-req"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res-400"
+                        }
+                    }
+                }
+            }         
+        },
+        "/get-film": {
+            "get":{
+                "tags": ["Get-Film"],
+                "summary": "Get a specific film",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "film_index",
+                        "required": false,
+                        "description": "Helps to specify the film; Expects a Number",
+                        "type": "string",
+                        "default": 1
+                    },
+                    {
+                        "in": "query",
+                        "name": "viewComment",
+                        "required": false,
+                        "description": "comes with the comments; must carry the ``comments`` string",
+                        "type": "string",
+                        "default": "comments"                 
+                    },
+                    {
+                        "in": "query",
+                        "name": "character",
+                        "required": false,
+                        "description": "comes with the characters; must carry the ``characters`` string",
+                        "type": "string",
+                        "default": "characters"                     
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res2"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res-400"
+                        }
+                    }
+                }
+            }         
+        },
+        "/get-film-characters": {
+            "get":{
+                "tags": ["Get-Film-characters"],
+                "summary": "Get a specific films Characters",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "film_index",
+                        "required": false,
+                        "description": "Helps to specify the film; Expects a Number",
+                        "type": "string",
+                        "default": 1
+                    },
+                    {
+                        "in": "query",
+                        "name": "gender",
+                        "required": false,
+                        "description": "it can be `female`, ``male``, ``not-available``",
+                        "type": "string",
+                        "default": "not-available"                 
+                    },
+                    {
+                        "in": "query",
+                        "name": "height",
+                        "required": false,
+                        "description": "heigh of character",
+                        "type": "string",
+                        "default": "100"                     
+                    },
+                    {
+                        "in": "query",
+                        "name": "operator",
+                        "required": false,
+                        "description": "it can be `lessThan`, ``greaterThan``, ``equalto``",
+                        "type": "string",
+                        "default": "greaterThan"                 
+                    },
+                    {
+                        "in": "query",
+                        "name": "character_name",
+                        "required": false,
+                        "description": "For the character name search \n **NB** it is case sensitive",
+                        "type": "string",
+                        "default": "r"                 
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res2"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/create-comment-res-400"
+                        }
+                    }
+                }
+            }         
+        }
+    },
+
+    "definitions": {
+        "id": {
+            "type": "integer"
+        },
+        "create-comment-req": {
+            "type": "object",
+            "properties": {
+                "movie_id": {
+                    "type": "string",
+                    "description": "this is the index of the movie you are creating",
+                    "required": true
+                },
+                "comment": {
+                    "type": "string"
+                }
+            }
+        },
+        "create-comment-res": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "create-comment-res2": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                }
+            }
+        },
+        "create-comment-res-400": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "error": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
